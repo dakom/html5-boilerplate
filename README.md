@@ -23,9 +23,9 @@ Html5 Boilerplate with the following features:
 
 * [x] Sane external data pipeline: _cdn vs. same-server vs. imported vs. remote, within dev vs. prod vs. test environments_
 
-* [x] Run tests with auto reloading and simultaneous in-browser view: _with customizable template_
+* [x] Run tests with live reporting, fast auto reloading, and simultaneous in-browser view
 
-* [x] Run tests against proper distribution build
+* [x] Run tests against proper distribution build: _no missing step from ci to live, can be extended to other scenarios_
 
 * [x] Media transcoding utility: _solves all the browser inconsistencies and licensing issues, e.g. Chromium's lack of mp4/h264 support, firefox relying on os support, etc._
 
