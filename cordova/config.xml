@@ -24,8 +24,8 @@
     </platform>
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="BackupWebStorage" value="local" />
-    <plugin name="cordova-plugin-console" spec="1.0.7" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
     <engine name="android" spec="~6.2.3" />
     <engine name="ios" spec="~4.4.0" />
+    <plugin name="cordova-plugin-console" spec="1.0.7" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
 </widget>

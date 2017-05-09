@@ -11,7 +11,7 @@
     "build:mobile:ios:xcode": "npm-run-all _mobile:prep _mobile:ios:xcode",
 
 
-    "_mobile:prep": "npm-run-all _build:dist:mobile _mobile:copydist",
+    "_mobile:prep": "npm-run-all --silent clean _copydist _build:dist:mobile  _mobile:copydist",
     "_mobile:copydist": "node ./_npm-utils/mobile-prep.js",
     "_mobile:ios:xcode": "cd cordova && cordova prepare ios",
     "_mobile:ios:debug": "cd cordova && cordova build ios --device",
@@ -20,14 +20,14 @@
     "_mobile:android:release": "cd cordova && cordova build android --release --device",
     "_build:dist:mobile": "cross-env NODE_ENV=mobiledist webpack --optimize-minimize --config _config/webpack.config.js",
 
-    "dev": "npm-run-all -p -r _localstatic _dev",
+    "dev": "npm-run-all -p -r _localstatic _localcdn _dev",
     "_dev": "cross-env NODE_ENV=dev webpack-dev-server --open --config _config/webpack.config.js",
-    "test:dev": "npm-run-all --silent -p -r _localstatic _test:dev",
+    "test:dev": "npm-run-all --silent -p -r _localstatic _localcdn _test:dev",
     "_test:dev": "cross-env NODE_ENV=testdev webpack-dev-server --open --config _config/webpack.config.js",
-    "test:dist:production": "npm-run-all --silent -s clean _build:test:dist:production -p -r _localstatic _test:dist:production",
+    "test:dist:production": "npm-run-all --silent -s clean _build:test:dist:production -p -r _localstatic _localcdn _test:dist:production",
     "_build:test:dist:production": "cross-env NODE_ENV=testdist webpack --optimize-minimize --config _config/webpack.config.js",
     "_test:dist:production": "cross-env NODE_ENV=testdist karma start _config/karma.conf.js",
-    "test:dist": "npm-run-all --silent -s clean _build:test:dist -p -r _localstatic _test:dist",
+    "test:dist": "npm-run-all --silent -s clean _build:test:dist -p -r _localstatic _localcdn _test:dist",
     "_build:test:dist": "cross-env NODE_ENV=testdist-localcdn webpack --optimize-minimize --config _config/webpack.config.js",
     "_test:dist": "cross-env NODE_ENV=testdist-localcdn karma start _config/karma.conf.js",
     "build:dist": "npm-run-all -s clean _copydist _build:dist",
@@ -42,7 +42,8 @@
     "_build:tsc": "tsc --project _config/tsconfig.json",
     "dist:server": "npm-run-all --silent build:dist _dist:server",
     "_dist:server": "http-server ./dist -p 5000 --cors",
-    "_localstatic": "http-server ./static -p 4000 --cors"
+    "_localstatic": "http-server ./static -p 4000 --cors",
+    "_localcdn": "http-server ./cdn -p 4001 --cors"
   },
   "author": "David Komer",
   "license": "MIT",

@@ -20,15 +20,14 @@ module.exports = (function () {
 
   //these are the locations on disk
   var localFolders = {
-    cdn: "./static/cdn/",
-    dist: "./static/dist-include/",
-    remote: "./static/remote/",
+    cdn: "./cdn/",
+    static: "./static/",
   }
 
   //Just for the transcoding tool
   var transcodeConfig = {
     originFolder: './media-source', //where it comes from
-    destFolder: './static/cdn', //where it goes
+    destFolder: "./cdn", //where it goes
   }
 
   //Just for the .proto compilier
@@ -111,12 +110,8 @@ module.exports = (function () {
   //////////////////////////////////////////////////////////////////////////////
 
   var DEV_SERVER_PORT = "3000";
-  var DEV_FILE_SERVER_PORT = "4000";
-
-  var exports = {
-    DEV_FILE_SERVER_PORT: DEV_FILE_SERVER_PORT,
-    DEV_SERVER_PORT: DEV_SERVER_PORT
-  };
+  var DEV_FILE_STATIC_SERVER_PORT = "4000";
+  var DEV_FILE_CDN_SERVER_PORT = "4001";
 
 exports.GetLocalFolders = function() {
   return localFolders;
@@ -179,11 +174,12 @@ exports.GetCordovaConfig = function() {
   }
 
   exports.GetInfo = function (key, env) {
-    var DEV_FILE_SERVER = "http://localhost:" + DEV_FILE_SERVER_PORT + "/";
-
+    var DEV_FILE_STATIC_SERVER = "http://localhost:" + DEV_FILE_STATIC_SERVER_PORT + "/";
+    var DEV_FILE_CDN_SERVER = "http://localhost:" + DEV_FILE_CDN_SERVER_PORT + "/";
+    
     switch (key) {
       case "dist":
-        return ((env === "production" || env === "mobiledist") ? "" : DEV_FILE_SERVER + "dist-include/");
+        return ((env === "production" || env === "mobiledist") ? "" : DEV_FILE_STATIC_SERVER + "dist-include/");
       case "cdn":
         if((env === "production" || env === "testdist")) {
           return CDN_SERVER;
@@ -191,7 +187,7 @@ exports.GetCordovaConfig = function() {
           return cordovaConfig.includeCdn ? cordovaConfig.cdnDestPath + "/" : CDN_SERVER;
         }
 
-        return DEV_FILE_SERVER + "cdn/";
+        return DEV_FILE_CDN_SERVER;
       case "remote":
       if(env === "mobiledist") {
         return cordovaConfig.includeRemote ? cordovaConfig.remoteDestPath + "/" : "//";
@@ -199,7 +195,7 @@ exports.GetCordovaConfig = function() {
         else if((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
           return "//";
         } else {
-          return DEV_FILE_SERVER + "remote/";
+          return DEV_FILE_STATIC_SERVER + "remote/";
         }
       case "html-template":
         var ret = "";

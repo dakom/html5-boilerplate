@@ -147,11 +147,13 @@ etc.
 
 1. Set core configuration settings in `common.config.js`. See the comments there for detailed info (e.g. external libs, worker entry points, excludes, etc.)
 
-2. Design `html-templates/index.template.ejs` as needed (change title, add stuff, etc.) - this corresponds to the final index.html and what you'll see in `dev` mode
+2. Edit package.json `_localstatic` and `_localcdn` directives to match `localFolders` in common.config.js
 
-3. Similarly for `html-templates/mocha.template.ejs`. This is only used for `dev:test` mode, the idea being that you see test results alongside the live webpage (for example - you could add in popup windows with more info, access the mocha stats from the generated code, etc.)
+3. Design `html-templates/index.template.ejs` as needed (change title, add stuff, etc.) - this corresponds to the final index.html and what you'll see in `dev` mode
 
-4. (cordova only) see [Cordova specific notes](#codorva-specific-notes) below
+4. Similarly for `html-templates/mocha.template.ejs`. This is only used for `dev:test` mode, the idea being that you see test results alongside the live webpage (for example - you could add in popup windows with more info, access the mocha stats from the generated code, etc.)
+
+5. (cordova only) see [Cordova specific notes](#codorva-specific-notes) below
 
 # Basic Workflow
 
@@ -271,6 +273,7 @@ These are explained in more depth elsewhere as well as in the `common.config.js`
 
 *screenshots/* - Just for the README
 
+*cdn/* - See [Static Files](#static-files) 
 *static/* - See [Static Files](#static-files)
 
 *proto-source/* - .proto source files

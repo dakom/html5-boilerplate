@@ -22,7 +22,7 @@ if(config.includeCdn) {
 }
 
 if(config.includeRemote) {
-    var includePath = CommonConfig.GetLocalFolders().remote;
+    var includePath = CommonConfig.GetLocalFolders().static + 'remote/';
     includePath = includePath.substring(0, includePath.length-1);
 
     fileListings = fileListings.concat(getFileListings(includePath, config.remoteDestPath));
