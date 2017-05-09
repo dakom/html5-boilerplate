@@ -163,9 +163,9 @@ After the basic [configuration](#configuration) is setup, you can run the variou
     * alternatively, more realistic test against distribution build (assumes cdn files exist on remote): `npm run test:dist:production`
 * Commit and push repo (will run tests on Travis CI if enabled)
 * Build distribution for uploading: `npm run build:dist`
-* Upload the `dist` folder
+* Upload the `dist` folder (or check it against a local static server w/ `npm run dist:server`)
 
-Once the site is working you'd package to mobile via `npm run build:mobile:[platform]:[release/debug/xcode]`.
+Once the site is working you'd package to mobile via `npm run build:mobile:[platform]:[release / debug / xcode]`.
 
 All of that while simultaneously while editing static files, transcoding media, and changing runtime configuration in the local static asset folders
 
