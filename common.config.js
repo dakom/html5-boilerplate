@@ -199,7 +199,7 @@ exports.GetCordovaConfig = function() {
         else if((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
           return "//";
         } else {
-          DEV_FILE_SERVER + "remote/";
+          return DEV_FILE_SERVER + "remote/";
         }
       case "html-template":
         var ret = "";
