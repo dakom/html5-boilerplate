@@ -1,0 +1,29 @@
+{
+    "version": "0.1.0",
+    "command": "npm",
+    "showOutput": "always",
+    "isShellCommand": true,
+    "args": ["run"],
+    "tasks": [
+        {
+            "taskName": "Clean",
+            "suppressTaskName": true,
+            "isBuildCommand": false,            
+            "args": ["clean"]
+        },
+        {
+            "taskName": "Build Distrubution",
+            "suppressTaskName": true,
+            "isBuildCommand": true,            
+            "args": ["build:dist"],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "taskName": "Development Local Server",
+            "suppressTaskName": true,
+            "isBuildCommand": false,            
+            "args": ["dev"],
+            "problemMatcher": "$tsc"
+        }
+    ]
+}

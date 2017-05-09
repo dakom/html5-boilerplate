@@ -1,0 +1,26 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "outDir": "../build",
+        "noImplicitAny": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "target": "es5",
+        "lib": [
+            "es6",
+            "es5",
+            "dom"
+        ]
+    },
+    "include": [
+        "../src/**/*.ts"
+    ],
+    
+    "exclude": [
+        "node_modules",
+        "dist",
+        "build",
+        "coverage"
+    ]
+}
