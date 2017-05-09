@@ -181,7 +181,7 @@ There is a bit of a sub-case of testing the distribution package but with the lo
 
 Development mode is meant for quick iterations and seeing live reporting as changes are saved. It uses mocha test reporting _within_ webpack-dev-server, and that setup required source maps be set to "eval" which leads to _slightly_ off line numbers (but still within the same block). Retranspilation times are very fast in this mode and it works in your browser of choice - as well as seeing test results alongside the live view webpage (without needing to hit additional buttons, and with the ability to easily customize the html template). 
 
-For both cases- all the tests base around the entry point of src/TestInit.ts and can use all the goodies of runtime code to test everything, including configuration settings or game state situations. Take a look at src/tests/game/GameTester.ts for example (it will fail if configuration hasn't been loaded as well as if it doesn't pass a sanity check)
+For both cases- all the tests base around the entry point of src/tests/TestInit.ts and can use all the goodies of runtime code to test everything, including configuration settings or game state situations. Take a look at src/tests/game/GameTester.ts for example (it will fail if configuration hasn't been loaded as well as if it doesn't pass a sanity check)
 
 # External Libraries
 
