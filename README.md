@@ -82,7 +82,7 @@ It's build around different layers which can be toggled independently via an int
 5. ### Worker  
     * [x] Uses settings from app.config.json
     * [x] Automatically ramps up/down to target fps (increases/decreases iterations to stay within target)
-    * [x] While the worker is super slow (on purpose) it does not affect the core fps at all
+    * [x] While the worker is super slow (on purpose) it does not affect the core fps at all (other than the repaint which happens on core)
     * [x] Demonstrates passing data back and forth via Transferable ArrayBuffer
     * [x] Plays background music on a loop
     
@@ -95,7 +95,7 @@ There are a few intentional quirks with the demo that typically wouldn't exist i
 
 1. Video loading is not from CDN but rather from the `static/dist-include/video` folder. This is due to a number of issues that resulted from loading via rawgit (security, mimetype, etc.). Loading it via a local folder rather than hosting on a proper streaming server simply made more sense for the purposes of this demo. Also it is set to mute in order to simplify bypassing more security restrictions.
 
-2. (Cordova export only) Workers aren't painting the image data (not sure where exactly the breakdown happens - but it's irrelevant, threading on cordova exports would rather be handled via a native plugin- and the webworker is active on mobile safari)
+2. (mobile only, esp. cordova) Fractal generation takes forever before something is visible. Not sure why it's so much slower on cordova, but in either case actual number crunching like this would be handled differently to give ui updates till it's ready, offload to native plugin, etc. 
 
 # Project Motivation
 
