@@ -55,7 +55,7 @@ It's build around different layers which can be toggled independently via an int
 
 1. ### Generic
     * [x] Scale to fit screen
-    * [x] Uses Protocol Buffers with generated classes
+    * [x] Uses Protocol Buffers with generated classes and typescript definitions
         * [x] Autocomplete works in IDE
         * [x] Utility to validate user data against protocol buffer
     * [x] Various tests
