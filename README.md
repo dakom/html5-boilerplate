@@ -3,7 +3,7 @@
 # Project Sample
 ![Demo Screenshot](/screenshots/Demo.png?raw=true "Demo Screenshot")
 
-Check the [Live Demo Link](https://dakom.github.io/html5-boilerplate) or scroll down to get [More Info](#demo-checklist)
+Check the [Live Demo Link](https://dakom.github.io/html5-boilerplate) or scroll down to get more info.
 
 # Boilerplate Checklist
 
