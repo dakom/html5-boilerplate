@@ -212,7 +212,7 @@ While there's no hard rule on how to use protocol buffers in js, the protobuf.js
 1. Edit the files in `proto-source/**/*.proto`
 2. Use the `npm run proto:compile` command (this is not run automatically via a watcher). 
 
-This will generate the js classes _with typescript definitions_ in the `src/protobufs-compiled` folder, which you can then import as usual. Generally you do not want to edit those generated classes since they'll be overriden on next compile.
+This will generate the js classes _with typescript definitions_ in the `src/protobufs-compiled` folder, which you can then import as usual. Generally you do not want to edit those generated classes since they'll be overriden on next compile. Since the `protobufs-compiled` folder does sit under the `src` folder, triggering a .proto compilation will automatically trigger webpack to detect the change and reload.
 
 ### Verification and Required Fields
 
