@@ -165,6 +165,8 @@ After the basic [configuration](#configuration) is setup, you can run the variou
 * Build distribution for uploading: `npm run build:dist`
 * Upload the `dist` folder
 
+Once the site is working you'd package to mobile via `npm run build:mobile:[platform]:[release/debug/xcode]`.
+
 All of that while simultaneously while editing static files, transcoding media, and changing runtime configuration in the local static asset folders
 
 Keep reading for more info...
@@ -407,6 +409,8 @@ Only requires one-time setup:
 5. (Android release-mode only) Setup signing credentials so that cordova can pick them up. There are various tutorials out there, for example http://ilee.co.uk/Sign-Releases-with-Cordova-Android
 
 The native builds end up in cordova/platforms/ios/build/device/[Project].ipa and cordova/platforms/android/build/outputs/[Project].apk
+
+Testflight requires that you build in release mode (apple requirement)
 
 _Note: this project does not deal with obb expansion packs for the Google Play Store, nor does it deal with native plugins. If your project requires it, you'll need to manually run the cordova packaging yourself - though the prep commands can be leveraged to boil that down to your own one-liner_
 
