@@ -1,10 +1,14 @@
 const fs = require('fs');
 const child_process = require('child_process');
 const mkdirp = require('mkdirp');
+const rimraf = require('rimraf');
 
 var CommonConfig = require('../common.config.js');
 
 var config = CommonConfig.GetProtoConfig();
+
+//delete current targets
+rimraf.sync(config.destFolder);
 
 //pbjs -t static-module -w commonjs -p proto/** **/*.proto",
 //child_process.execFileSync("ffmpeg", ["-i", originFile, "-movflags", "+faststart", "-pix_fmt", "yuv420p", "-f", "webm", "-vcodec", "libvpx-vp9", "-acodec", "libvorbis", "-ab", "128000", "-crf", "22", "-b:v", "0", destFile]);
