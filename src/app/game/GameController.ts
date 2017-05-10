@@ -1,6 +1,6 @@
 import { Canvas } from '../core/helpers/pixi/Canvas';
 import { Path } from '../core/utils/Path';
-import { ObjectUtils, EverythingIsSetOptions } from '../core/utils/ObjectUtils';
+import { ObjectUtils, ValidationOptions } from '../core/utils/ObjectUtils';
 import { AssetManager } from './assets/AssetManager';
 import { MenuManager } from './menu/MenuManager';
 import { LayerManager } from './layers/LayerManager';
@@ -30,11 +30,11 @@ export class GameController {
         
         this.config = gameConfig.Options.create(jsonObj);
 
-        let opts:EverythingIsSetOptions = new EverythingIsSetOptions();
+        let opts:ValidationOptions = new ValidationOptions();
         opts.numberNegativeAllowed = false;
         opts.numberZeroAllowed = false;
 
-        if(!ObjectUtils.EverythingIsSet(this.config.toObject(), opts)) {
+        if(!ObjectUtils.Validate(this.config.toObject(), opts)) {
             throw new Error("bad game configuration");
         }
     }

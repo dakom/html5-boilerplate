@@ -1,4 +1,4 @@
-export class EverythingIsSetOptions {
+export class ValidationOptions {
     public undefinedAllowed:boolean = false;
     public nullAllowed:boolean = false;
     public stringEmptyAllowed:boolean = false;
@@ -12,9 +12,9 @@ export class EverythingIsSetOptions {
 
 export class ObjectUtils {
 
-    static EverythingIsSet(obj:any, options?:EverythingIsSetOptions): boolean {
+    static Validate(obj:any, options?:ValidationOptions): boolean {
         if(options === undefined) {
-            options = new EverythingIsSetOptions();
+            options = new ValidationOptions();
         }
 
         if(obj === undefined) {
@@ -50,7 +50,7 @@ export class ObjectUtils {
                 return false;
             }
             for(let val of obj) {
-                if(!this.EverythingIsSet(val, options)) {
+                if(!this.Validate(val, options)) {
                     return false;
                 }
             }
@@ -66,7 +66,7 @@ export class ObjectUtils {
             }
 
             for(let key of keys) {
-                if(!this.EverythingIsSet(obj[key], options)) {
+                if(!this.Validate(obj[key], options)) {
                     return false;
                 }
             }

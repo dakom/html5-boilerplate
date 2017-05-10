@@ -18,7 +18,7 @@ export class ProtoTest {
                     version: ""
                 });
 
-                expect(ObjectUtils.EverythingIsSet(appInfo.toObject())).to.equal(false);
+                expect(ObjectUtils.Validate(appInfo.toObject())).to.equal(false);
             });
 
             it('should pass deep verification', () => {
@@ -26,7 +26,7 @@ export class ProtoTest {
                     version: "foo"
                 });
 
-                expect(ObjectUtils.EverythingIsSet(appInfo.toObject())).to.equal(true);
+                expect(ObjectUtils.Validate(appInfo.toObject())).to.equal(true);
             });
         });
     }

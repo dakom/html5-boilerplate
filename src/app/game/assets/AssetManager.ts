@@ -33,8 +33,8 @@ export class AssetManager {
                         throw err;
                     }
                     
-                    this.info = appConfig.Info.create(jsonObj);
-                    if(!ObjectUtils.EverythingIsSet(this.info.toObject())) {
+                    this.info = appConfig.Info.fromObject(jsonObj);
+                    if(!ObjectUtils.Validate(this.info.toObject())) {
                         throw new Error("bad app configuration");
                     }
 

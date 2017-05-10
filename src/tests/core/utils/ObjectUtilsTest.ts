@@ -1,19 +1,19 @@
 import { expect } from 'chai';
-import { ObjectUtils,EverythingIsSetOptions } from '../../../app/core/utils/ObjectUtils';
+import { ObjectUtils,ValidationOptions} from '../../../app/core/utils/ObjectUtils';
 
 export class ObjectUtilsTest {
     static RunTests() {
-        describe('ObjectUtils EverythingIsSet()', () => {
+        describe('ObjectUtils Validate()', () => {
             let iter:number = 1;
 
             it('should fail ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         
                     })).to.equal(false);
             });
 
             it('should fail ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
 
                         ]         
@@ -21,7 +21,7 @@ export class ObjectUtilsTest {
             });
 
             it('should fail ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: ""
@@ -31,7 +31,7 @@ export class ObjectUtilsTest {
             });
 
             it('should pass ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
@@ -41,7 +41,7 @@ export class ObjectUtilsTest {
             });
 
             it('should fail ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: ""
@@ -54,7 +54,7 @@ export class ObjectUtilsTest {
             });
 
             it('should pass ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
@@ -67,10 +67,10 @@ export class ObjectUtilsTest {
             });
 
             it('should fail ' + iter++, () => {
-                    let opts:EverythingIsSetOptions = new EverythingIsSetOptions();
+                    let opts:ValidationOptions = new ValidationOptions();
                     opts.numberZeroAllowed = false;
 
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
@@ -83,7 +83,7 @@ export class ObjectUtilsTest {
             });
 
             it('should fail ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
@@ -101,7 +101,7 @@ export class ObjectUtilsTest {
             });
 
             it('should pass ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
@@ -119,10 +119,10 @@ export class ObjectUtilsTest {
             });
 
             it('should pass ' + iter++, () => {
-                    let opts:EverythingIsSetOptions = new EverythingIsSetOptions();
+                    let opts:ValidationOptions = new ValidationOptions();
                     opts.stringEmptyAllowed = true;
 
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
@@ -140,10 +140,10 @@ export class ObjectUtilsTest {
             });
 
             it('should fail ' + iter++, () => {
-                    let opts:EverythingIsSetOptions = new EverythingIsSetOptions();
+                    let opts:ValidationOptions = new ValidationOptions();
                     opts.numberNegativeAllowed = false;
 
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
@@ -160,7 +160,7 @@ export class ObjectUtilsTest {
             });
 
             it('should pass ' + iter++, () => {
-                    expect(ObjectUtils.EverythingIsSet({
+                    expect(ObjectUtils.Validate({
                         foo: [
                             {
                                 str: "Hello"
