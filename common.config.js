@@ -8,6 +8,9 @@ module.exports = (function () {
   //the remote location of the cdn server
   var CDN_SERVER = "https://cdn.rawgit.com/dakom/html5-boilerplate/1.0/static/cdn/";
   
+  //cdn origin for uploading to cloud storage (not used on every project)
+  var CLOUDSTORAGE_CDN_ORIGIN = "gs://example-cdn/app/";
+
   //when in development mode, force load "remote" external libs from their local folder
   //this is useful when developing offline or if you have a lot of remote libraries
   var DEV_REMOTE_IS_LOCAL = false;
@@ -112,6 +115,10 @@ module.exports = (function () {
   var DEV_SERVER_PORT = "3000";
   var DEV_FILE_STATIC_SERVER_PORT = "4000";
   var DEV_FILE_CDN_SERVER_PORT = "4001";
+
+exports.GetCloudStorageCdnOrigin = function() {
+  return CLOUDSTORAGE_CDN_ORIGIN;
+}
 
 exports.GetLocalFolders = function() {
   return localFolders;
@@ -223,15 +230,13 @@ exports.GetCordovaConfig = function() {
           if (libInfo.type == "remote" && (env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
             //it seems karma requires the full url
             ret.push("http://" + libInfo.loc);
-          } else {
+          } else if (libInfo.type == "cdn") {
+              var cdnServer = exports.GetInfo(libInfo.type, env);
+
+              ret.push(cdnServer + cdnLibsPrefix + libInfo.loc);
+        } else {
             var baseUrl = localFolders[libInfo.type];
-            if (libInfo.type == "cdn") {
-              if(env === "production" || env === "testdist") {
-                ret.push(CDN_SERVER + cdnLibsPrefix + libInfo.loc);
-                continue;
-              }
-              baseUrl += cdnLibsPrefix;
-            } else if (libInfo.type == "dist") {
+            if (libInfo.type == "dist") {
               baseUrl += distLibsPrefix;
             }
 
