@@ -39,6 +39,8 @@ Html5 Boilerplate with the following features:
 
 * [x] Distribution works w/ static host: _Netlify, Github pages, etc._
 
+* [x] Sample helpers for using cloud storage: _cors setup, sync script, etc._
+
 # Screenshots of Development Scenarios
 
 ![Line numbers in dev](/screenshots/LineNumbers.png?raw=true "Line numbers for dev")
@@ -141,6 +143,8 @@ You may need to install some global binaries too:
 
 (cordova only) `sudo npm install -g cordova`
 
+(google cloud storage only) install gsutil
+
 etc.
 
 # Configuration
@@ -154,6 +158,8 @@ etc.
 4. Similarly for `html-templates/mocha.template.ejs`. This is only used for `dev:test` mode, the idea being that you see test results alongside the live webpage (for example - you could add in popup windows with more info, access the mocha stats from the generated code, etc.)
 
 5. (cordova only) see [Cordova specific notes](#codorva-specific-notes) below
+
+6. (cloud storage only) see [Cloud storage notes](#cloud-storage-notes) below
 
 # Basic Workflow
 
@@ -388,6 +394,14 @@ _Runs a static server on http://localhost:5000_
 
 _Does not clean or build anything since it's just for a check_
 
+## Sync to cdn (if using google cloud as the origin)
+
+`npm run cdn:sync`
+
+_Relies on things being configured correctly and gsutil already existing on the system_
+
+_Runs in rsync mode without deletion, feel free to edit `_npm-utils/cdn-sync.js` if you'd prefer some other settings_
+
 ----
 More helpers are available in package.json, and there are generally subcommands prefixed with `_` which can be run separately for more granular control
 
@@ -422,6 +436,19 @@ _Note: this project does not deal with obb expansion packs for the Google Play S
 1. Build (Distribution) is the default build Task Runner in VSCode and the other tasks could be added easily since they are all just simple npm args
 
 2. Once the Dev command is run - the VSCode debugger can be attached via the Chrome VSCode extension (see launch.json). This hasn't been tested in depth but seems to work at a glance.
+
+# Cloud Storage notes
+
+If you use Google Cloud storage as the cdn origin, there's some helpers to setup correct cors information so that things will load from the production server as well as the test scenarios
+
+1. Edit _config/storage-cors.json
+
+The example.com entries should be replaced with your production site urls
+
+The localhost entries should be left as-is (they are the dist:server and karma test servers)
+
+2. Run `gsutil cors set ./_config/storage-cors.json gs://your-bucket` to apply CORS settings to the bucket
+
 
 # Footnotes
 
