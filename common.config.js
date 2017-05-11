@@ -197,7 +197,7 @@ exports.GetCordovaConfig = function() {
         return DEV_FILE_CDN_SERVER;
       case "remote":
       if(env === "mobiledist") {
-        return cordovaConfig.includeRemote ? cordovaConfig.remoteDestPath + "/" : "//";
+        return cordovaConfig.includeRemote ? cordovaConfig.remoteDestPath + "/" : "https://";
       }
         else if((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
           return "//";
