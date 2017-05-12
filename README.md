@@ -219,7 +219,7 @@ https://github.com/dakom/html5-boilerplate/blob/master/src/app/core/utils/Path.t
 
 Since the included js is not detected by webpack/tsc/etc during development, the package is imported in order for tsc to pick it up and give us all the goodies. However, since we only want to actually use the js included via html and not the imported js (since it would be redundant), we need to tell webpack to exclude it from the bundle. 
 
-The protobuf.js is an example of this:
+Protobuf.js is an example of this:
 
 https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/assets/AssetManager.ts#L4
 
