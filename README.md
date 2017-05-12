@@ -204,7 +204,7 @@ For the sake of this demo and to test different scenarios, lots of different app
 
 **1. External vanilla js with no types and loaded only through html**
 
-Since these libraries have no types, and are only loaded externally, they must be treated as generic _any_ objects and cast as such at runtime. One example here is using pix-sound:
+Since these libraries have no types, and are only loaded externally, they must be treated as generic _any_ objects and cast as such at runtime. One example here is using pix-sound _only_ through html inclusion:
 
 https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/layers/Worker/WorkerManager.ts#L10
 
