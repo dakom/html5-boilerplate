@@ -4,7 +4,8 @@
   "description": "HTML5 Boilerplate (mostly for games)",
   "main": "index.js",
   "scripts": {
-    "cdn:sync": "node ./_npm-utils/cdn-sync.js",
+    "cdn:sync:soft": "cross-env NODE_ENV=sync-soft node ./_npm-utils/cdn-sync.js",
+    "cdn:sync:hard": "cross-env NODE_ENV=sync-hard node ./_npm-utils/cdn-sync.js",
     
     "build:mobile:ios:debug": "npm-run-all _mobile:prep _mobile:ios:debug",
     "build:mobile:ios:release": "npm-run-all _mobile:prep _mobile:ios:release",

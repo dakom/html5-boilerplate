@@ -439,11 +439,11 @@ _Does not clean or build anything since it's just for a check_
 
 ## Sync to cdn (if using google cloud as the origin)
 
-`npm run cdn:sync`
+`npm run cdn:sync:soft` or `npm run cdn:sync:hard`
 
 _Relies on things being configured correctly and gsutil already existing on the system_
 
-_Runs in rsync mode without deletion, feel free to edit `_npm-utils/cdn-sync.js` if you'd prefer some other settings_
+_Soft runs in rsync mode without deletion, Hard runs in rsync mode with deletion (be careful!)_
 
 ----
 More helpers are available in package.json, and there are generally subcommands prefixed with `_` which can be run separately for more granular control
