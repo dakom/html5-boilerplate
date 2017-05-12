@@ -197,6 +197,46 @@ Generally speaking, the right place to put external libraries is *always* going 
 
 Although it's tempting to concat all external libs into one file, it may not always be the best approach since each update would invalidate the whole and then the external libs which were not touched would unnecessarily lose their cache. For this reason, they are not processed here at all other than copying as-is for distribution.
 
+For the sake of this demo and to test different scenarios, lots of different approaches to included are taken, with the aim to demonstrate best-practices:
+
+1. External vanilla js with no types and loaded only through html
+
+Since these libraries have no types, and are only loaded externally, they must be treated as generic _any_ objects and cast as such at runtime. One example here is using pix-sound:
+
+https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/layers/Worker/WorkerManager.ts#L10
+
+https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/layers/Worker/WorkerManager.ts#L20
+
+A similar example is the Modernizr build:
+
+https://github.com/dakom/html5-boilerplate/blob/master/src/app/core/utils/Path.ts#L12
+
+ 
+2. External js loaded only through html, but with types available if it _were_ loaded via the npm package.
+
+Since the included js is not detected by webpack/tsc/etc during development, the package is imported in order for tsc to pick it up and give us all the goodies. However, since we only want to actually use the js included via html and not the imported js (since it would be redundant), we need to tell webpack to exclude it from the bundle. 
+
+The protobuf.js is an example of this:
+
+https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/assets/AssetManager.ts#L4
+
+The html inclusion is set like others in common.config.js, and the exclusion is set there too: https://github.com/dakom/html5-boilerplate/blob/master/common.config.js#L97
+
+
+3. External js loaded only through html, and a separate @types package installed.
+
+tsc will pickup the @types package and give all the runtime goodies even though the library package itself is never imported
+
+PIXI.js is an example of this.
+ 
+4. Code with type definitions and imported into the actual bundle.
+
+The generated proto.js and proto.d.ts files are an example of this.
+
+e.g. imported here: https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/GameController.ts#L9
+
+and used here: https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/GameController.ts#L21 / https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/GameController.ts#L31 etc.
+
 # Static files
 
 There are four basic types of external/static files in a typical project, and so they are handled differently:
