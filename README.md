@@ -23,6 +23,8 @@ Html5 Boilerplate with the following features:
 
 * [x] Sane external data pipeline: _cdn vs. same-server vs. imported vs. remote, within dev vs. prod vs. test environments_
 
+* [x] Best practices for working with external libraries: _typescript helpers in all kinds of scenarios_
+
 * [x] Run tests with live reporting, fast auto reloading, and simultaneous in-browser view
 
 * [x] Run tests against proper distribution build: _no missing step from ci to live, can be extended to other scenarios_
@@ -63,6 +65,7 @@ It's build around different layers which can be toggled independently via an int
     * [x] Various tests
         * [x] Unit tests
         * [x] Runtime tests against game state
+    * [x] Various methods to work with external libraries
 
 2. ### Loaders
     * [x] Leverages PIXI loader to handle all kinds of media
@@ -199,7 +202,7 @@ Although it's tempting to concat all external libs into one file, it may not alw
 
 For the sake of this demo and to test different scenarios, lots of different approaches to included are taken, with the aim to demonstrate best-practices:
 
-1. External vanilla js with no types and loaded only through html
+*1. External vanilla js with no types and loaded only through html*
 
 Since these libraries have no types, and are only loaded externally, they must be treated as generic _any_ objects and cast as such at runtime. One example here is using pix-sound:
 
@@ -212,7 +215,7 @@ A similar example is the Modernizr build:
 https://github.com/dakom/html5-boilerplate/blob/master/src/app/core/utils/Path.ts#L12
 
  
-2. External js loaded only through html, but with types available if it _were_ loaded via the npm package.
+*2. External js loaded only through html, but with types available if it _were_ loaded via the npm package.*
 
 Since the included js is not detected by webpack/tsc/etc during development, the package is imported in order for tsc to pick it up and give us all the goodies. However, since we only want to actually use the js included via html and not the imported js (since it would be redundant), we need to tell webpack to exclude it from the bundle. 
 
@@ -223,13 +226,13 @@ https://github.com/dakom/html5-boilerplate/blob/master/src/app/game/assets/Asset
 The html inclusion is set like others in common.config.js, and the exclusion is set there too: https://github.com/dakom/html5-boilerplate/blob/master/common.config.js#L97
 
 
-3. External js loaded only through html, and a separate @types package installed.
+*3. External js loaded only through html, and a separate @types package installed.*
 
 tsc will pickup the @types package and give all the runtime goodies even though the library package itself is never imported
 
 PIXI.js is an example of this.
  
-4. Code with type definitions and imported into the actual bundle.
+*4. Code with type definitions and imported into the actual bundle.*
 
 The generated proto.js and proto.d.ts files are an example of this.
 
