@@ -58,6 +58,6 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, "src"),
         compress: true,
-        port: CommonConfig.DEV_SERVER_PORT
+        port: CommonConfig.GetDevServerPort()
     }
 };

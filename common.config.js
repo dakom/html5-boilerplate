@@ -116,6 +116,10 @@ module.exports = (function () {
   var DEV_FILE_STATIC_SERVER_PORT = "4000";
   var DEV_FILE_CDN_SERVER_PORT = "4001";
 
+exports.GetDevServerPort = function() {
+  return DEV_SERVER_PORT;
+}
+
 exports.GetCloudStorageCdnOrigin = function() {
   return CLOUDSTORAGE_CDN_ORIGIN;
 }
