@@ -1,9 +1,14 @@
+const os = require('os');
+
 module.exports = (function () {
   
 
   /*
     For all the values below, pay attention to trailing slashes, they are there for a reason :)
   */
+
+  //set to false to just use localhost, otherwise it will make best-guess at the local ip and use that in dev mode
+  var DEV_LAN_MODE = false;
 
   //the remote location of the cdn server
   var CDN_SERVER = "https://cdn.rawgit.com/dakom/html5-boilerplate/1.0/static/cdn/";
@@ -116,6 +121,57 @@ module.exports = (function () {
   var DEV_FILE_STATIC_SERVER_PORT = "4000";
   var DEV_FILE_CDN_SERVER_PORT = "4001";
 
+function GetLocalLanIp() {
+    var bestMatch = "localhost";
+
+    if(!DEV_LAN_MODE) {
+      return bestMatch;
+    }
+
+    //http://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js
+
+    var ifaces = os.networkInterfaces();
+    
+
+    Object.keys(ifaces).forEach(function (ifname) {
+      var alias = 0;
+
+      ifaces[ifname].forEach(function (iface) {
+        if ('IPv4' !== iface.family || iface.internal !== false) {
+          // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+          return;
+        }
+
+        //quick and dirty... could be improved
+        if(ifname.indexOf("en0") === 0) {
+          bestMatch = iface.address;
+        }
+
+        //for logging-
+
+        if (alias >= 1) {
+          // this single interface has multiple ipv4 addresses
+          //console.log(ifname + ':' + alias, iface.address);
+        } else {
+          // this interface has only one ipv4 adress
+          //console.log(ifname, iface.address);
+        }
+
+        
+        ++alias;
+      });
+    });
+
+
+    return bestMatch;
+  }
+
+  exports.GetLocalLanIp = GetLocalLanIp;
+
+  function GetLocalHttpAddress(port) {
+    return "http://" + GetLocalLanIp() + ":" + port + "/";
+  }
+
 exports.GetDevServerPort = function() {
   return DEV_SERVER_PORT;
 }
@@ -185,8 +241,8 @@ exports.GetCordovaConfig = function() {
   }
 
   exports.GetInfo = function (key, env) {
-    var DEV_FILE_STATIC_SERVER = "http://localhost:" + DEV_FILE_STATIC_SERVER_PORT + "/";
-    var DEV_FILE_CDN_SERVER = "http://localhost:" + DEV_FILE_CDN_SERVER_PORT + "/";
+    var DEV_FILE_STATIC_SERVER = GetLocalHttpAddress(DEV_FILE_STATIC_SERVER_PORT);
+    var DEV_FILE_CDN_SERVER = GetLocalHttpAddress(DEV_FILE_CDN_SERVER_PORT);
     
     switch (key) {
       case "dist":
