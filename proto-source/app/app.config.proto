@@ -1,6 +1,0 @@
-package appConfig;
-syntax = "proto3";
-
-message Info {
-    string version = 1;
-}

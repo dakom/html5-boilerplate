@@ -61,29 +61,9 @@ module.exports = (function () {
   */
   var externalLibs = [
     {
-      loc: 'cdnjs.cloudflare.com/ajax/libs/mathjs/3.12.1/math.min.js',
-      type: 'remote'
-    },
-    {
       loc: 'cdn.rawgit.com/dcodeIO/protobuf.js/6.7.3/dist/protobuf.min.js',
       type: 'remote'
     },
-    {
-      loc: 'pixi/pixi.min.js',
-      type: 'cdn',
-    },
-    {
-      loc: 'kittykatattack/scaleToWindow.js',
-      type: 'cdn',
-    },
-    {
-      loc: 'Modernizr-build.js',
-      type: 'cdn',
-    },
-    {
-      loc: 'pixi/pixi-sound.min.js',
-      type: 'dist',
-    }
   ];
 
 /*
@@ -109,9 +89,7 @@ module.exports = (function () {
     So to load the worker defined in this example, you'd use new Worker('fractalWorker.js');
     "bundle" is a reserved name so don't use that
   */
-  var workerEntries = {
-    fractalWorker: './src/workers/fractal/FractalWorkerInit.ts'
-  }
+  var workerEntries = {}
 
   //////////////////////////////////////////////////////////////////////////////
   /////////////// Nothing to change below here - edit at your own risk! ////////
