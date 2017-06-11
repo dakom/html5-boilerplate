@@ -1,8 +1,0 @@
-[
-    {
-      "origin": ["http://app.example.com", "https://app.example.com", "http://localhost:5000", "http://localhost:9876"],
-      "responseHeader": ["Content-Type"],
-      "method": ["GET", "HEAD", "OPTIONS"],
-      "maxAgeSeconds": 3600
-    }
-]

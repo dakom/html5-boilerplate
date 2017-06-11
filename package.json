@@ -4,25 +4,7 @@
   "description": "HTML5 Boilerplate (mostly for games)",
   "main": "index.js",
   "scripts": {
-    "cdn:sync:soft": "cross-env NODE_ENV=sync-soft node ./_npm-utils/cdn-sync.js",
-    "cdn:sync:hard": "cross-env NODE_ENV=sync-hard node ./_npm-utils/cdn-sync.js",
-    
-    "build:mobile:ios:debug": "npm-run-all _mobile:prep _mobile:ios:debug",
-    "build:mobile:ios:release": "npm-run-all _mobile:prep _mobile:ios:release",
-    "build:mobile:android:debug": "npm-run-all _mobile:prep _mobile:android:debug",
-    "build:mobile:android:release": "npm-run-all _mobile:prep _mobile:android:release",
-    "build:mobile:ios:xcode": "npm-run-all _mobile:prep _mobile:ios:xcode",
-
-
-    "_mobile:prep": "npm-run-all --silent clean _copydist _build:dist:mobile  _mobile:copydist",
-    "_mobile:copydist": "node ./_npm-utils/mobile-prep.js",
-    "_mobile:ios:xcode": "cd cordova && cordova prepare ios",
-    "_mobile:ios:debug": "cd cordova && cordova build ios --device",
-    "_mobile:ios:release": "cd cordova && cordova build ios --release --device",
-    "_mobile:android:debug": "cd cordova && cordova build android --device",
-    "_mobile:android:release": "cd cordova && cordova build android --release --device",
-    "_build:dist:mobile": "cross-env NODE_ENV=mobiledist webpack --optimize-minimize --config _config/webpack.config.js",
-
+   
     "dev": "npm-run-all -p -r _localstatic _localcdn _dev",
     "_dev": "cross-env NODE_ENV=dev webpack-dev-server --open --config _config/webpack.config.js",
     "test:dev": "npm-run-all --silent -p -r _localstatic _localcdn _test:dev",
@@ -36,8 +18,6 @@
     "build:dist": "npm-run-all -s clean _copydist _build:dist",
     "_copydist": "mkdir dist && cp -R static/dist-include/* dist/",
     "_build:dist": "cross-env NODE_ENV=production webpack -p --config _config/webpack.config.js",
-    "transcode": "node ./_npm-utils/transcode.js",
-    "proto:compile": "node ./_npm-utils/proto-compile.js",
     "clean": "rm -rf ./dist && rm -rf ./build && rm -rf ./test-dist && rm -rf ./test-dev && rm -rf ./coverage",
     "build:webpack": "npm-run-all -s clean _build:webpack",
     "_build:webpack": "cross-env NODE_ENV=production webpack --config _config/webpack.config.js",
@@ -70,7 +50,6 @@
     "mocha-loader": "^1.1.1",
     "mocha-typescript": "^1.1.0",
     "npm-run-all": "^4.0.2",
-    "protobufjs": "6.7.3",
     "rimraf": "2.6.1",
     "source-map-loader": "^0.2.1",
     "ts-loader": "^2.0.3",

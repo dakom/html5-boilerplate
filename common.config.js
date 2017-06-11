@@ -32,27 +32,6 @@ module.exports = (function () {
     static: "./static/",
   }
 
-  //Just for the transcoding tool
-  var transcodeConfig = {
-    originFolder: './media-source', //where it comes from
-    destFolder: "./cdn", //where it goes
-  }
-
-  //Just for the .proto compilier
-  var protoConfig = {
-    originFolder: './proto-source', //where it comes from
-    destFolder: './src/protobufs-compiled', //where it goes
-  }
-
-  //Just for cordova/mobile bundling
-  var cordovaConfig = {
-    includeCdn: false, //will copy localFolders.cdn stuff across too (adjust your codebase accordingly...)
-    includeRemote: false, //will copy localFolders.remote across too (adjust your codebase accordingly...)
-    cdnDestPath: "assets/cdn", //if includeCdn is true, name of folder to copy to
-    remoteDestPath: "assets/remote", //if includeRemote is true, name of folder to copy to
-    ignoreExtensions: ['m4a', 'ogg', 'ogv', 'webm', "ds_store"] //will not copy files with these extensions
-  }
-
   /*
     Each object has only two values
 
@@ -69,18 +48,9 @@ module.exports = (function () {
 /*
   The following seting is for where the external libs are imported as modules in code but *only* for IDE helpers. 
   
-  Perhaps it's due to lack of separate @types package, or maybe we want Flow Analysis to kick in due to an import()).
-
-  In either case, add the library to these exclusions. Otherwise they will reduntantly get compiled into the project bundle.
-  
-  Note that with protobufjs in particular, the author specifically advised using the npm package instead of @types
-  Yet we want to import the javascript as a remote include via cdn etc.
-
-  This solves that redundancy
+  See common.config.js in the master branch for example
 */
-  var webpackExcludes = [{
-    protobufjs: 'protobuf'
-  }];
+  var webpackExcludes = [];
 
 
   /*
@@ -161,13 +131,6 @@ exports.GetCloudStorageCdnOrigin = function() {
 exports.GetLocalFolders = function() {
   return localFolders;
 }
-exports.GetCordovaConfig = function() {
-  return cordovaConfig;
-}
-
-  exports.GetProtoConfig = function() {
-    return protoConfig;
-  }
 
   exports.GetWebpackOutputFolder = function(env) {
     switch(env) {
@@ -224,20 +187,16 @@ exports.GetCordovaConfig = function() {
     
     switch (key) {
       case "dist":
-        return ((env === "production" || env === "mobiledist") ? "" : DEV_FILE_STATIC_SERVER + "dist-include/");
+        return ((env === "production") ? "" : DEV_FILE_STATIC_SERVER + "dist-include/");
       case "cdn":
         if((env === "production" || env === "testdist")) {
           return CDN_SERVER;
-        } else if(env ==="mobiledist") {
-          return cordovaConfig.includeCdn ? cordovaConfig.cdnDestPath + "/" : CDN_SERVER;
         }
 
         return DEV_FILE_CDN_SERVER;
       case "remote":
-      if(env === "mobiledist") {
-        return cordovaConfig.includeRemote ? cordovaConfig.remoteDestPath + "/" : "https://";
-      }
-        else if((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
+      
+      if((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
           return "//";
         } else {
           return DEV_FILE_STATIC_SERVER + "remote/";
