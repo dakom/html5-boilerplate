@@ -10,25 +10,15 @@ module.exports = (function () {
   //set to false to just use localhost, otherwise it will make best-guess at the local ip and use that in dev mode
   var DEV_LAN_MODE = false;
 
-  //the remote location of the cdn server
-  var CDN_SERVER = "https://cdn.rawgit.com/dakom/html5-boilerplate/1.0/static/cdn/";
-  
-  //cdn origin for uploading to cloud storage (not used on every project)
-  var CLOUDSTORAGE_CDN_ORIGIN = "gs://example-cdn/app/";
-
   //when in development mode, force load "remote" external libs from their local folder
   //this is useful when developing offline or if you have a lot of remote libraries
   var DEV_REMOTE_IS_LOCAL = false;
-  
-  //all the libs sitting on the cdn should be under this folder
-  var cdnLibsPrefix = 'runtime-libs/';
 
   //all the libs sitting on the distribution server should be under this folder
   var distLibsPrefix = 'runtime-libs/'; 
 
   //these are the locations on disk
   var localFolders = {
-    cdn: "./cdn/",
     static: "./static/",
   }
 
@@ -36,7 +26,7 @@ module.exports = (function () {
     Each object has only two values
 
     loc: the relative location of the target file (no prefixes)
-    type: remote, cdn, or dist
+    type: remote or dist
   */
   var externalLibs = [
     {
@@ -67,7 +57,6 @@ module.exports = (function () {
 
   var DEV_SERVER_PORT = "3000";
   var DEV_FILE_STATIC_SERVER_PORT = "4000";
-  var DEV_FILE_CDN_SERVER_PORT = "4001";
 
 function GetLocalLanIp() {
     var bestMatch = "localhost";
@@ -124,10 +113,6 @@ exports.GetDevServerPort = function() {
   return DEV_SERVER_PORT;
 }
 
-exports.GetCloudStorageCdnOrigin = function() {
-  return CLOUDSTORAGE_CDN_ORIGIN;
-}
-
 exports.GetLocalFolders = function() {
   return localFolders;
 }
@@ -137,7 +122,6 @@ exports.GetLocalFolders = function() {
       case "testdev":
         return "test-dev";
       case "testdist":
-      case "testdist-localcdn":
         return "test-dist";
       default:
         return "dist";
@@ -151,7 +135,7 @@ exports.GetLocalFolders = function() {
         entries[key] = workerEntries[key];
       }
     }
-    if(env == "testdev" || env == "testdist" || env == "testdist-localcdn") {
+    if(env == "testdev" || env == "testdist") {
       entries.bundle = './src/tests/TestInit.ts';
     } else {
       entries.bundle ='./src/app/AppInit.ts';
@@ -183,17 +167,10 @@ exports.GetLocalFolders = function() {
 
   exports.GetInfo = function (key, env) {
     var DEV_FILE_STATIC_SERVER = GetLocalHttpAddress(DEV_FILE_STATIC_SERVER_PORT);
-    var DEV_FILE_CDN_SERVER = GetLocalHttpAddress(DEV_FILE_CDN_SERVER_PORT);
     
     switch (key) {
       case "dist":
         return ((env === "production") ? "" : DEV_FILE_STATIC_SERVER + "dist-include/");
-      case "cdn":
-        if((env === "production" || env === "testdist")) {
-          return CDN_SERVER;
-        }
-
-        return DEV_FILE_CDN_SERVER;
       case "remote":
       
       if((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
@@ -206,13 +183,7 @@ exports.GetLocalFolders = function() {
         for (var i = 0; i < externalLibs.length; i++) {
           var libInfo = externalLibs[i];
           var baseUrl = exports.GetInfo(libInfo.type, env);
-          if (libInfo.type == "cdn") {
-            if(env === "production" || env === "testdist") {
-                ret += "<script type='text/javascript' src='" + CDN_SERVER + cdnLibsPrefix + libInfo.loc + "'></script>\n";
-                continue;
-              }
-            baseUrl += cdnLibsPrefix;
-          } else if (libInfo.type == "dist") {
+          if (libInfo.type == "dist") {
             baseUrl += distLibsPrefix;
           }
           var libUrl = baseUrl + libInfo.loc;
@@ -227,11 +198,7 @@ exports.GetLocalFolders = function() {
           if (libInfo.type == "remote" && (env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
             //it seems karma requires the full url
             ret.push("http://" + libInfo.loc);
-          } else if (libInfo.type == "cdn") {
-              var cdnServer = exports.GetInfo(libInfo.type, env);
-
-              ret.push(cdnServer + cdnLibsPrefix + libInfo.loc);
-        } else {
+          } else {
             var baseUrl = localFolders[libInfo.type];
             if (libInfo.type == "dist") {
               baseUrl += distLibsPrefix;
