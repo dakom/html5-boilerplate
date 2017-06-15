@@ -28,12 +28,7 @@ module.exports = (function () {
     loc: the relative location of the target file (no prefixes)
     type: remote or dist
   */
-  var externalLibs = [
-    {
-      loc: 'cdn.rawgit.com/dcodeIO/protobuf.js/6.7.3/dist/protobuf.min.js',
-      type: 'remote'
-    },
-  ];
+  var externalLibs = [];
 
 /*
   The following seting is for where the external libs are imported as modules in code but *only* for IDE helpers. 
