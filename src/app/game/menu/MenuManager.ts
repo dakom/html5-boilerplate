@@ -14,8 +14,8 @@ export class MenuManager extends PIXI.Container {
         let bgTexture:PIXI.Texture = assets.loader.resources.gameassets.textures["bg"];
         let circleTexture:PIXI.Texture = assets.loader.resources.gameassets.textures["circle"];
 
-        let xOffset:number = 0;
-        let yOffset:number = 0;
+        let xOffset:number = 10;
+        let yOffset:number = 10;
         let yMargin:number = 10;
 
         this.character = new ToggleButton(bgTexture, circleTexture, "Character");

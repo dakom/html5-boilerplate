@@ -16,7 +16,7 @@ export class CharacterManager extends PIXI.Container {
         this.ticker.add(this.tux.update.bind(this.tux));
         this.ticker.start();
 
-        this.addListener('removed', () => {
+        this.on('removed', () => {
             this.ticker.stop();
         });
     }

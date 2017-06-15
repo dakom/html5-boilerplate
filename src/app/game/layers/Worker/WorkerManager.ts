@@ -43,10 +43,10 @@ export class WorkerManager extends PIXI.Container {
 
         });
 
-        this.addListener('removed', () => {
+        this.on('removed', () => {
             this.bgMusic.stop();
             this.worker.terminate();
-        })
+        });
     }
 
     requestDataUpdate() {

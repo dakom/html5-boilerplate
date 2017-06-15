@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/dakom/html5-boilerplate.svg?branch=master)](https://travis-ci.org/dakom/html5-boilerplate)
 
-_preliminary note - there is a drastically simplified barebones version available on the [barebones branch](https://github.com/dakom/html5-boilerplate/tree/barebones). For most quick projects, it's a better starting point - but consult here for reference_
+_preliminary note - there is a simplified barebones version available on the [barebones branch](https://github.com/dakom/html5-boilerplate/tree/barebones). For most quick projects, it's a better starting point - but consult here for reference_
 
 # Project Sample
 ![Demo Screenshot](/screenshots/Demo.png?raw=true "Demo Screenshot")
@@ -165,6 +165,8 @@ etc.
 5. (cordova only) see [Cordova specific notes](#codorva-specific-notes) below
 
 6. (cloud storage only) see [Cloud storage notes](#cloud-storage-notes) below
+
+7. (optional) - for github pages deployment, which this branch currently does but the barebones branch does not, simply set the GITHUB_TOKEN environment variable. See https://docs.travis-ci.com/user/deployment/pages/ for more info
 
 # Basic Workflow
 

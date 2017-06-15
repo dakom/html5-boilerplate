@@ -20,6 +20,17 @@ before_script:
 script:
   - npm run test:dist:production
 
+after_success:
+  - npm run build:dist
+
+deploy:
+  local_dir: dist
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
+
 #this fails for some reason?!
 #addons:
   #firefox: latest

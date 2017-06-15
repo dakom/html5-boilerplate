@@ -6,14 +6,11 @@
   "scripts": {
     "cdn:sync:soft": "cross-env NODE_ENV=sync-soft node ./_npm-utils/cdn-sync.js",
     "cdn:sync:hard": "cross-env NODE_ENV=sync-hard node ./_npm-utils/cdn-sync.js",
-    
     "build:mobile:ios:debug": "npm-run-all _mobile:prep _mobile:ios:debug",
     "build:mobile:ios:release": "npm-run-all _mobile:prep _mobile:ios:release",
     "build:mobile:android:debug": "npm-run-all _mobile:prep _mobile:android:debug",
     "build:mobile:android:release": "npm-run-all _mobile:prep _mobile:android:release",
     "build:mobile:ios:xcode": "npm-run-all _mobile:prep _mobile:ios:xcode",
-
-
     "_mobile:prep": "npm-run-all --silent clean _copydist _build:dist:mobile  _mobile:copydist",
     "_mobile:copydist": "node ./_npm-utils/mobile-prep.js",
     "_mobile:ios:xcode": "cd cordova && cordova prepare ios",
@@ -22,7 +19,6 @@
     "_mobile:android:debug": "cd cordova && cordova build android --device",
     "_mobile:android:release": "cd cordova && cordova build android --release --device",
     "_build:dist:mobile": "cross-env NODE_ENV=mobiledist webpack --optimize-minimize --config _config/webpack.config.js",
-
     "dev": "npm-run-all -p -r _localstatic _localcdn _dev",
     "_dev": "cross-env NODE_ENV=dev webpack-dev-server --open --config _config/webpack.config.js",
     "test:dev": "npm-run-all --silent -p -r _localstatic _localcdn _test:dev",
@@ -55,7 +51,7 @@
     "@types/file-saver": "^0.0.0",
     "@types/mathjs": "^0.0.34",
     "@types/mocha": "^2.2.41",
-    "@types/pixi.js": "^4.4.3",
+    "@types/pixi.js": "4.5.0",
     "chai": "^3.5.0",
     "cross-env": "^4.0.0",
     "file-saver": "^1.3.3",
@@ -78,7 +74,7 @@
     "source-map-loader": "^0.2.1",
     "ts-loader": "^2.0.3",
     "typescript": "^2.2.2",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.4"
+    "webpack": "2.6.1",
+    "webpack-dev-server": "2.4.5"
   }
 }
