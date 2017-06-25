@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/dakom/html5-boilerplate.svg?branch=master)](https://travis-ci.org/dakom/html5-boilerplate)
 
-_preliminary note - there is a simplified barebones version available on the [barebones branch](https://github.com/dakom/html5-boilerplate/tree/barebones). For most quick projects, it's a better starting point - but consult here for reference_
+_note: - there is a simplified barebones version available on the [barebones branch](https://github.com/dakom/html5-boilerplate/tree/barebones). For most projects that's really the better starting point_
+
+_there's also a react-friendly version [here](https://github.com/dakom/html5-boilerplate/tree/barebones-react)_
 
 # Project Sample
 ![Demo Screenshot](/screenshots/Demo.png?raw=true "Demo Screenshot")
