@@ -22,19 +22,20 @@ $root.gameConfig = (function() {
 
         /**
          * Properties of an Options.
-         * @typedef gameConfig.Options$Properties
-         * @type {Object}
-         * @property {boolean} [playBackgroundMusic] Options playBackgroundMusic.
-         * @property {number} [targetWorkerFps] Options targetWorkerFps.
-         * @property {number} [workerIterationJump] Options workerIterationJump.
-         * @property {number} [minimumIterations] Options minimumIterations.
+         * @memberof gameConfig
+         * @interface IOptions
+         * @property {boolean} [playBackgroundMusic] Options playBackgroundMusic
+         * @property {number} [targetWorkerFps] Options targetWorkerFps
+         * @property {number} [workerIterationJump] Options workerIterationJump
+         * @property {number} [minimumIterations] Options minimumIterations
          */
 
         /**
          * Constructs a new Options.
-         * @exports gameConfig.Options
+         * @memberof gameConfig
+         * @classdesc Represents an Options.
          * @constructor
-         * @param {gameConfig.Options$Properties=} [properties] Properties to set
+         * @param {gameConfig.IOptions=} [properties] Properties to set
          */
         function Options(properties) {
             if (properties)
@@ -45,31 +46,42 @@ $root.gameConfig = (function() {
 
         /**
          * Options playBackgroundMusic.
-         * @type {boolean}
+         * @member {boolean}playBackgroundMusic
+         * @memberof gameConfig.Options
+         * @instance
          */
         Options.prototype.playBackgroundMusic = false;
 
         /**
          * Options targetWorkerFps.
-         * @type {number}
+         * @member {number}targetWorkerFps
+         * @memberof gameConfig.Options
+         * @instance
          */
         Options.prototype.targetWorkerFps = 0;
 
         /**
          * Options workerIterationJump.
-         * @type {number}
+         * @member {number}workerIterationJump
+         * @memberof gameConfig.Options
+         * @instance
          */
         Options.prototype.workerIterationJump = 0;
 
         /**
          * Options minimumIterations.
-         * @type {number}
+         * @member {number}minimumIterations
+         * @memberof gameConfig.Options
+         * @instance
          */
         Options.prototype.minimumIterations = 0;
 
         /**
          * Creates a new Options instance using the specified properties.
-         * @param {gameConfig.Options$Properties=} [properties] Properties to set
+         * @function create
+         * @memberof gameConfig.Options
+         * @static
+         * @param {gameConfig.IOptions=} [properties] Properties to set
          * @returns {gameConfig.Options} Options instance
          */
         Options.create = function create(properties) {
@@ -78,7 +90,10 @@ $root.gameConfig = (function() {
 
         /**
          * Encodes the specified Options message. Does not implicitly {@link gameConfig.Options.verify|verify} messages.
-         * @param {gameConfig.Options$Properties} message Options message or plain object to encode
+         * @function encode
+         * @memberof gameConfig.Options
+         * @static
+         * @param {gameConfig.IOptions} message Options message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -98,7 +113,10 @@ $root.gameConfig = (function() {
 
         /**
          * Encodes the specified Options message, length delimited. Does not implicitly {@link gameConfig.Options.verify|verify} messages.
-         * @param {gameConfig.Options$Properties} message Options message or plain object to encode
+         * @function encodeDelimited
+         * @memberof gameConfig.Options
+         * @static
+         * @param {gameConfig.IOptions} message Options message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -108,6 +126,9 @@ $root.gameConfig = (function() {
 
         /**
          * Decodes an Options message from the specified reader or buffer.
+         * @function decode
+         * @memberof gameConfig.Options
+         * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
          * @returns {gameConfig.Options} Options
@@ -143,6 +164,9 @@ $root.gameConfig = (function() {
 
         /**
          * Decodes an Options message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof gameConfig.Options
+         * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @returns {gameConfig.Options} Options
          * @throws {Error} If the payload is not a reader or valid buffer
@@ -150,14 +174,17 @@ $root.gameConfig = (function() {
          */
         Options.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
-                reader = $Reader(reader);
+                reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
          * Verifies an Options message.
+         * @function verify
+         * @memberof gameConfig.Options
+         * @static
          * @param {Object.<string,*>} message Plain object to verify
-         * @returns {?string} `null` if valid, otherwise the reason why it is not
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
         Options.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
@@ -179,6 +206,9 @@ $root.gameConfig = (function() {
 
         /**
          * Creates an Options message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof gameConfig.Options
+         * @static
          * @param {Object.<string,*>} object Plain object
          * @returns {gameConfig.Options} Options
          */
@@ -198,18 +228,12 @@ $root.gameConfig = (function() {
         };
 
         /**
-         * Creates an Options message from a plain object. Also converts values to their respective internal types.
-         * This is an alias of {@link gameConfig.Options.fromObject}.
-         * @function
-         * @param {Object.<string,*>} object Plain object
-         * @returns {gameConfig.Options} Options
-         */
-        Options.from = Options.fromObject;
-
-        /**
          * Creates a plain object from an Options message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof gameConfig.Options
+         * @static
          * @param {gameConfig.Options} message Options
-         * @param {$protobuf.ConversionOptions} [options] Conversion options
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
         Options.toObject = function toObject(message, options) {
@@ -234,16 +258,10 @@ $root.gameConfig = (function() {
         };
 
         /**
-         * Creates a plain object from this Options message. Also converts values to other types if specified.
-         * @param {$protobuf.ConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        Options.prototype.toObject = function toObject(options) {
-            return this.constructor.toObject(this, options);
-        };
-
-        /**
          * Converts this Options to JSON.
+         * @function toJSON
+         * @memberof gameConfig.Options
+         * @instance
          * @returns {Object.<string,*>} JSON object
          */
         Options.prototype.toJSON = function toJSON() {

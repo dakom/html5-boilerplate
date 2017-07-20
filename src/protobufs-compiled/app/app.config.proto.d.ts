@@ -1,66 +1,55 @@
 import * as $protobuf from "protobufjs";
 
-/**
- * Namespace appConfig.
- * @exports appConfig
- * @namespace
- */
+/** Namespace appConfig. */
 export namespace appConfig {
 
-    type Info$Properties = {
-        version?: string;
-    };
+    /** Properties of an Info. */
+    interface IInfo {
 
-    /**
-     * Constructs a new Info.
-     * @exports appConfig.Info
-     * @constructor
-     * @param {appConfig.Info$Properties=} [properties] Properties to set
-     */
+        /** Info version */
+        version?: string;
+    }
+
+    /** Represents an Info. */
     class Info {
 
         /**
          * Constructs a new Info.
-         * @exports appConfig.Info
-         * @constructor
-         * @param {appConfig.Info$Properties=} [properties] Properties to set
+         * @param [properties] Properties to set
          */
-        constructor(properties?: appConfig.Info$Properties);
+        constructor(properties?: appConfig.IInfo);
 
-        /**
-         * Info version.
-         * @type {string}
-         */
+        /** Info version. */
         public version: string;
 
         /**
          * Creates a new Info instance using the specified properties.
-         * @param {appConfig.Info$Properties=} [properties] Properties to set
-         * @returns {appConfig.Info} Info instance
+         * @param [properties] Properties to set
+         * @returns Info instance
          */
-        public static create(properties?: appConfig.Info$Properties): appConfig.Info;
+        public static create(properties?: appConfig.IInfo): appConfig.Info;
 
         /**
          * Encodes the specified Info message. Does not implicitly {@link appConfig.Info.verify|verify} messages.
-         * @param {appConfig.Info$Properties} message Info message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
+         * @param message Info message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
          */
-        public static encode(message: appConfig.Info$Properties, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encode(message: appConfig.IInfo, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
          * Encodes the specified Info message, length delimited. Does not implicitly {@link appConfig.Info.verify|verify} messages.
-         * @param {appConfig.Info$Properties} message Info message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
+         * @param message Info message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
          */
-        public static encodeDelimited(message: appConfig.Info$Properties, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encodeDelimited(message: appConfig.IInfo, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
          * Decodes an Info message from the specified reader or buffer.
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {appConfig.Info} Info
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Info
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
@@ -68,8 +57,8 @@ export namespace appConfig {
 
         /**
          * Decodes an Info message from the specified reader or buffer, length delimited.
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {appConfig.Info} Info
+         * @param reader Reader or buffer to decode from
+         * @returns Info
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
@@ -77,45 +66,29 @@ export namespace appConfig {
 
         /**
          * Verifies an Info message.
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {?string} `null` if valid, otherwise the reason why it is not
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates an Info message from a plain object. Also converts values to their respective internal types.
-         * @param {Object.<string,*>} object Plain object
-         * @returns {appConfig.Info} Info
+         * @param object Plain object
+         * @returns Info
          */
         public static fromObject(object: { [k: string]: any }): appConfig.Info;
 
         /**
-         * Creates an Info message from a plain object. Also converts values to their respective internal types.
-         * This is an alias of {@link appConfig.Info.fromObject}.
-         * @function
-         * @param {Object.<string,*>} object Plain object
-         * @returns {appConfig.Info} Info
-         */
-        public static from(object: { [k: string]: any }): appConfig.Info;
-
-        /**
          * Creates a plain object from an Info message. Also converts values to other types if specified.
-         * @param {appConfig.Info} message Info
-         * @param {$protobuf.ConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
+         * @param message Info
+         * @param [options] Conversion options
+         * @returns Plain object
          */
-        public static toObject(message: appConfig.Info, options?: $protobuf.ConversionOptions): { [k: string]: any };
-
-        /**
-         * Creates a plain object from this Info message. Also converts values to other types if specified.
-         * @param {$protobuf.ConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        public toObject(options?: $protobuf.ConversionOptions): { [k: string]: any };
+        public static toObject(message: appConfig.Info, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
          * Converts this Info to JSON.
-         * @returns {Object.<string,*>} JSON object
+         * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }

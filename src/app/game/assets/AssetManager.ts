@@ -34,7 +34,7 @@ export class AssetManager {
                     }
                     
                     this.info = appConfig.Info.fromObject(jsonObj);
-                    if(!ObjectUtils.Validate(this.info.toObject())) {
+                    if(!ObjectUtils.Validate(appConfig.Info.toObject(this.info))) {
                         throw new Error("bad app configuration");
                     }
 

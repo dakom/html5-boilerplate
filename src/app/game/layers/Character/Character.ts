@@ -17,9 +17,7 @@ export class Character extends PIXI.Sprite {
 
     constructor(tex: PIXI.Texture, private boingSound: any, private xMax: number, private yMax: number) {
         super(tex);
-
-
-
+        
         this.anchor.set(0.5);
 
         this.x = xMax / 2;

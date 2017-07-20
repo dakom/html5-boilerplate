@@ -34,7 +34,7 @@ export class GameController {
         opts.numberNegativeAllowed = false;
         opts.numberZeroAllowed = false;
 
-        if(!ObjectUtils.Validate(this.config.toObject(), opts)) {
+        if(!ObjectUtils.Validate(gameConfig.Options.toObject(this.config), opts)) {
             throw new Error("bad game configuration");
         }
     }

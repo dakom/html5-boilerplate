@@ -17,8 +17,8 @@ export class ProtoTest {
                 let appInfo:appConfig.Info = appConfig.Info.create({
                     version: ""
                 });
-
-                expect(ObjectUtils.Validate(appInfo.toObject())).to.equal(false);
+                
+                expect(ObjectUtils.Validate(appConfig.Info.toObject(appInfo))).to.equal(false);
             });
 
             it('should pass deep verification', () => {
@@ -26,7 +26,7 @@ export class ProtoTest {
                     version: "foo"
                 });
 
-                expect(ObjectUtils.Validate(appInfo.toObject())).to.equal(true);
+                expect(ObjectUtils.Validate(appConfig.Info.toObject(appInfo))).to.equal(true);
             });
         });
     }

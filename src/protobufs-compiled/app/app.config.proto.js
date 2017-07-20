@@ -22,16 +22,17 @@ $root.appConfig = (function() {
 
         /**
          * Properties of an Info.
-         * @typedef appConfig.Info$Properties
-         * @type {Object}
-         * @property {string} [version] Info version.
+         * @memberof appConfig
+         * @interface IInfo
+         * @property {string} [version] Info version
          */
 
         /**
          * Constructs a new Info.
-         * @exports appConfig.Info
+         * @memberof appConfig
+         * @classdesc Represents an Info.
          * @constructor
-         * @param {appConfig.Info$Properties=} [properties] Properties to set
+         * @param {appConfig.IInfo=} [properties] Properties to set
          */
         function Info(properties) {
             if (properties)
@@ -42,13 +43,18 @@ $root.appConfig = (function() {
 
         /**
          * Info version.
-         * @type {string}
+         * @member {string}version
+         * @memberof appConfig.Info
+         * @instance
          */
         Info.prototype.version = "";
 
         /**
          * Creates a new Info instance using the specified properties.
-         * @param {appConfig.Info$Properties=} [properties] Properties to set
+         * @function create
+         * @memberof appConfig.Info
+         * @static
+         * @param {appConfig.IInfo=} [properties] Properties to set
          * @returns {appConfig.Info} Info instance
          */
         Info.create = function create(properties) {
@@ -57,7 +63,10 @@ $root.appConfig = (function() {
 
         /**
          * Encodes the specified Info message. Does not implicitly {@link appConfig.Info.verify|verify} messages.
-         * @param {appConfig.Info$Properties} message Info message or plain object to encode
+         * @function encode
+         * @memberof appConfig.Info
+         * @static
+         * @param {appConfig.IInfo} message Info message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -71,7 +80,10 @@ $root.appConfig = (function() {
 
         /**
          * Encodes the specified Info message, length delimited. Does not implicitly {@link appConfig.Info.verify|verify} messages.
-         * @param {appConfig.Info$Properties} message Info message or plain object to encode
+         * @function encodeDelimited
+         * @memberof appConfig.Info
+         * @static
+         * @param {appConfig.IInfo} message Info message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
@@ -81,6 +93,9 @@ $root.appConfig = (function() {
 
         /**
          * Decodes an Info message from the specified reader or buffer.
+         * @function decode
+         * @memberof appConfig.Info
+         * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
          * @returns {appConfig.Info} Info
@@ -107,6 +122,9 @@ $root.appConfig = (function() {
 
         /**
          * Decodes an Info message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof appConfig.Info
+         * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @returns {appConfig.Info} Info
          * @throws {Error} If the payload is not a reader or valid buffer
@@ -114,14 +132,17 @@ $root.appConfig = (function() {
          */
         Info.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
-                reader = $Reader(reader);
+                reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
          * Verifies an Info message.
+         * @function verify
+         * @memberof appConfig.Info
+         * @static
          * @param {Object.<string,*>} message Plain object to verify
-         * @returns {?string} `null` if valid, otherwise the reason why it is not
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
         Info.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
@@ -134,6 +155,9 @@ $root.appConfig = (function() {
 
         /**
          * Creates an Info message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof appConfig.Info
+         * @static
          * @param {Object.<string,*>} object Plain object
          * @returns {appConfig.Info} Info
          */
@@ -147,18 +171,12 @@ $root.appConfig = (function() {
         };
 
         /**
-         * Creates an Info message from a plain object. Also converts values to their respective internal types.
-         * This is an alias of {@link appConfig.Info.fromObject}.
-         * @function
-         * @param {Object.<string,*>} object Plain object
-         * @returns {appConfig.Info} Info
-         */
-        Info.from = Info.fromObject;
-
-        /**
          * Creates a plain object from an Info message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof appConfig.Info
+         * @static
          * @param {appConfig.Info} message Info
-         * @param {$protobuf.ConversionOptions} [options] Conversion options
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
         Info.toObject = function toObject(message, options) {
@@ -173,16 +191,10 @@ $root.appConfig = (function() {
         };
 
         /**
-         * Creates a plain object from this Info message. Also converts values to other types if specified.
-         * @param {$protobuf.ConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        Info.prototype.toObject = function toObject(options) {
-            return this.constructor.toObject(this, options);
-        };
-
-        /**
          * Converts this Info to JSON.
+         * @function toJSON
+         * @memberof appConfig.Info
+         * @instance
          * @returns {Object.<string,*>} JSON object
          */
         Info.prototype.toJSON = function toJSON() {
