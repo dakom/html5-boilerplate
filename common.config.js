@@ -1,7 +1,7 @@
 const os = require('os');
 
 module.exports = (function () {
-  
+
 
   /*
     For all the values below, pay attention to trailing slashes, they are there for a reason :)
@@ -19,87 +19,38 @@ module.exports = (function () {
   //when in development mode, force load "remote" external libs from their local folder
   //this is useful when developing offline or if you have a lot of remote libraries
   var DEV_REMOTE_IS_LOCAL = false;
-  
+
   //all the libs sitting on the cdn should be under this folder
   var cdnLibsPrefix = 'runtime-libs/';
 
   //all the libs sitting on the distribution server should be under this folder
-  var distLibsPrefix = 'runtime-libs/'; 
+  var distLibsPrefix = 'runtime-libs/';
 
   //these are the locations on disk
   var localFolders = {
-    cdn: "./cdn/",
+    cdnWindows: "./cdn/",
+    cdnOsx: "./cdn/",
     static: "./static/",
-  }
-
-  //Just for the transcoding tool
-  var transcodeConfig = {
-    originFolder: './media-source', //where it comes from
-    destFolder: "./cdn", //where it goes
-  }
-
-  //Just for the .proto compilier
-  var protoConfig = {
-    originFolder: './proto-source', //where it comes from
-    destFolder: './src/protobufs-compiled', //where it goes
-  }
-
-  //Just for cordova/mobile bundling
-  var cordovaConfig = {
-    includeCdn: false, //will copy localFolders.cdn stuff across too (adjust your codebase accordingly...)
-    includeRemote: false, //will copy localFolders.remote across too (adjust your codebase accordingly...)
-    cdnDestPath: "assets/cdn", //if includeCdn is true, name of folder to copy to
-    remoteDestPath: "assets/remote", //if includeRemote is true, name of folder to copy to
-    ignoreExtensions: ['m4a', 'ogg', 'ogv', 'webm', "ds_store"] //will not copy files with these extensions
   }
 
   /*
     Each object has only two values
 
     loc: the relative location of the target file (no prefixes)
-    type: remote, cdn, or dist
+    type: remote or dist
   */
-  var externalLibs = [
-    {
-      loc: 'cdnjs.cloudflare.com/ajax/libs/mathjs/3.12.1/math.min.js',
-      type: 'remote'
-    },
-    {
-      loc: 'cdn.rawgit.com/dcodeIO/protobuf.js/6.7.3/dist/protobuf.min.js',
-      type: 'remote'
-    },
-    {
-      loc: 'pixi/pixi.min.js',
-      type: 'cdn',
-    },
-    {
-      loc: 'kittykatattack/scaleToWindow.js',
-      type: 'cdn',
-    },
-    {
-      loc: 'Modernizr-build.js',
-      type: 'cdn',
-    },
-    {
-      loc: 'pixi/pixi-sound.min.js',
-      type: 'dist',
-    }
-  ];
+  var externalLibs = [{
+    loc: 'cdnjs.cloudflare.com/ajax/libs/ramda/0.24.1/ramda.min.js',
+    type: 'remote'
+  }];
 
-/*
-  The following seting is for where the external libs are imported as modules in code but *only* for IDE helpers. 
-  
-  Perhaps it's due to lack of separate @types package, or maybe we want Flow Analysis to kick in due to an import()).
-
-  In either case, add the library to these exclusions. Otherwise they will reduntantly get compiled into the project bundle.
-  
-  Note that with protobufjs in particular, the author specifically advised using the npm package instead of @types
-  Yet we want to import the javascript as a remote include via cdn etc.
-
-  This solves that redundancy
-*/
+  /*
+    The following seting is for where the external libs are imported as modules in code but *only* for IDE helpers. 
+    
+    See common.config.js in the master branch for example
+  */
   var webpackExcludes = [{
-    protobufjs: 'protobuf'
+    ramda: 'R'
   }];
 
 
@@ -109,9 +60,7 @@ module.exports = (function () {
     So to load the worker defined in this example, you'd use new Worker('fractalWorker.js');
     "bundle" is a reserved name so don't use that
   */
-  var workerEntries = {
-    fractalWorker: './src/workers/fractal/FractalWorkerInit.ts'
-  }
+  var workerEntries = {}
 
   //////////////////////////////////////////////////////////////////////////////
   /////////////// Nothing to change below here - edit at your own risk! ////////
@@ -121,17 +70,17 @@ module.exports = (function () {
   var DEV_FILE_STATIC_SERVER_PORT = "4000";
   var DEV_FILE_CDN_SERVER_PORT = "4001";
 
-function GetLocalLanIp() {
+  function GetLocalLanIp() {
     var bestMatch = "localhost";
 
-    if(!DEV_LAN_MODE) {
+    if (!DEV_LAN_MODE) {
       return bestMatch;
     }
 
     //http://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js
 
     var ifaces = os.networkInterfaces();
-    
+
 
     Object.keys(ifaces).forEach(function (ifname) {
       var alias = 0;
@@ -143,7 +92,7 @@ function GetLocalLanIp() {
         }
 
         //quick and dirty... could be improved
-        if(ifname.indexOf("en0") === 0) {
+        if (ifname.indexOf("en0") === 0) {
           bestMatch = iface.address;
         }
 
@@ -157,7 +106,7 @@ function GetLocalLanIp() {
           //console.log(ifname, iface.address);
         }
 
-        
+
         ++alias;
       });
     });
@@ -172,94 +121,92 @@ function GetLocalLanIp() {
     return "http://" + GetLocalLanIp() + ":" + port + "/";
   }
 
-exports.GetDevServerPort = function() {
-  return DEV_SERVER_PORT;
-}
-
-exports.GetCloudStorageCdnOrigin = function() {
-  return CLOUDSTORAGE_CDN_ORIGIN;
-}
-
-exports.GetLocalFolders = function() {
-  return localFolders;
-}
-exports.GetCordovaConfig = function() {
-  return cordovaConfig;
-}
-
-  exports.GetProtoConfig = function() {
-    return protoConfig;
+  exports.GetDevServerPort = function () {
+    return DEV_SERVER_PORT;
   }
 
-  exports.GetWebpackOutputFolder = function(env) {
-    switch(env) {
+  exports.GetCloudStorageCdnOrigin = function () {
+    return CLOUDSTORAGE_CDN_ORIGIN;
+  }
+
+  exports.GetLocalFolders = function () {
+    var folders = localFolders;
+
+    if (os.platform().toLowerCase().indexOf("win") === 0) {
+      folders.cdn = localFolders.cdnWindows;
+    } else {
+      folders.cdn = localFolders.cdnOsx;
+    }
+
+    return folders;
+  }
+
+  exports.GetWebpackOutputFolder = function (env) {
+    switch (env) {
       case "testdev":
         return "test-dev";
       case "testdist":
-      case "testdist-localcdn":
         return "test-dist";
       default:
         return "dist";
     }
 
   }
-  exports.GetWebpackEntries = function(env) {
+  exports.GetWebpackEntries = function (env) {
     var entries = {};
-    for(var key in workerEntries) {
-      if(workerEntries.hasOwnProperty(key)) {
+    for (var key in workerEntries) {
+      if (workerEntries.hasOwnProperty(key)) {
         entries[key] = workerEntries[key];
       }
     }
-    if(env == "testdev" || env == "testdist" || env == "testdist-localcdn") {
-      entries.bundle = './src/tests/TestInit.ts';
+    if (env == "testdev" || env == "testdist") {
+      entries.bundle = './src/tests/TestInit.tsx';
     } else {
-      entries.bundle ='./src/app/AppInit.ts';
+      entries.bundle = './src/app/AppInit.tsx';
     }
     return entries;
   }
 
-  exports.GetWebpackDevTool = function(env) {
-    
-    if(env == "testdev") {
+  exports.GetWebpackDevTool = function (env) {
+
+    if (env == "testdev") {
       return 'eval';
     }
     return 'source-map';
   }
-  exports.GetWebpackHtmlTemplate = function(env) {
-    if(env == "testdev") {
+  exports.GetWebpackHtmlTemplate = function (env) {
+    if (env == "testdev") {
       return './html-templates/mocha.template.ejs'
     }
     return './html-templates/index.template.ejs';
   }
 
-  exports.GetTranscodeConfig = function() {
+  exports.GetTranscodeConfig = function () {
     return transcodeConfig;
   }
 
-  exports.GetWebpackExcludes = function() {
+  exports.GetWebpackExcludes = function () {
     return webpackExcludes;
   }
 
   exports.GetInfo = function (key, env) {
     var DEV_FILE_STATIC_SERVER = GetLocalHttpAddress(DEV_FILE_STATIC_SERVER_PORT);
     var DEV_FILE_CDN_SERVER = GetLocalHttpAddress(DEV_FILE_CDN_SERVER_PORT);
-    
+
     switch (key) {
       case "dist":
-        return ((env === "production" || env === "mobiledist") ? "" : DEV_FILE_STATIC_SERVER + "dist-include/");
+        return ((env === "production") ? "" : DEV_FILE_STATIC_SERVER + "dist-include/");
       case "cdn":
-        if((env === "production" || env === "testdist")) {
+        if ((env === "production" || env === "testdist")) {
           return CDN_SERVER;
-        } else if(env ==="mobiledist") {
+        } else if (env === "mobiledist") {
           return cordovaConfig.includeCdn ? cordovaConfig.cdnDestPath + "/" : CDN_SERVER;
         }
 
         return DEV_FILE_CDN_SERVER;
       case "remote":
-      if(env === "mobiledist") {
-        return cordovaConfig.includeRemote ? cordovaConfig.remoteDestPath + "/" : "https://";
-      }
-        else if((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
+
+        if ((env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
           return "//";
         } else {
           return DEV_FILE_STATIC_SERVER + "remote/";
@@ -269,13 +216,7 @@ exports.GetCordovaConfig = function() {
         for (var i = 0; i < externalLibs.length; i++) {
           var libInfo = externalLibs[i];
           var baseUrl = exports.GetInfo(libInfo.type, env);
-          if (libInfo.type == "cdn") {
-            if(env === "production" || env === "testdist") {
-                ret += "<script type='text/javascript' src='" + CDN_SERVER + cdnLibsPrefix + libInfo.loc + "'></script>\n";
-                continue;
-              }
-            baseUrl += cdnLibsPrefix;
-          } else if (libInfo.type == "dist") {
+          if (libInfo.type == "dist") {
             baseUrl += distLibsPrefix;
           }
           var libUrl = baseUrl + libInfo.loc;
@@ -290,11 +231,7 @@ exports.GetCordovaConfig = function() {
           if (libInfo.type == "remote" && (env === "production" || !DEV_REMOTE_IS_LOCAL || env === "testdist")) {
             //it seems karma requires the full url
             ret.push("http://" + libInfo.loc);
-          } else if (libInfo.type == "cdn") {
-              var cdnServer = exports.GetInfo(libInfo.type, env);
-
-              ret.push(cdnServer + cdnLibsPrefix + libInfo.loc);
-        } else {
+          } else {
             var baseUrl = localFolders[libInfo.type];
             if (libInfo.type == "dist") {
               baseUrl += distLibsPrefix;

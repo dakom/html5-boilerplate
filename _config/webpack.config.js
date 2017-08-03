@@ -10,10 +10,11 @@ module.exports = {
     entry: CommonConfig.GetWebpackEntries(process.env.NODE_ENV),
     
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.css']
     },
     output: {
         path: path.resolve(__dirname, '../' + CommonConfig.GetWebpackOutputFolder(process.env.NODE_ENV)),
+        publicPath: "/",
         filename: '[name].js',
         chunkFilename: '[chunkhash].js'
     },
@@ -22,12 +23,16 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+            {
+                test: /\.jsx?$/,
                 use: ["source-map-loader"],
                 enforce: "pre"
             },
             {
-                test: /\.ts$/,
+                test: /\.tsx?$/,
                 loader: "ts-loader",
                 options: {
                     configFileName: "./_config/tsconfig.json"
@@ -59,6 +64,7 @@ module.exports = {
         contentBase: path.join(__dirname, "src"),
         compress: true,
         port: CommonConfig.GetDevServerPort(),
-        host: CommonConfig.GetLocalLanIp()
+        host: CommonConfig.GetLocalLanIp(),
+        historyApiFallback: true,
     }
 };

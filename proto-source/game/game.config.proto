@@ -1,9 +1,0 @@
-package gameConfig;
-syntax = "proto3";
-
-message Options {
-    bool playBackgroundMusic = 1;
-    int32 targetWorkerFps = 2;
-    int32 workerIterationJump = 3;
-    int32 minimumIterations = 4;
-}
