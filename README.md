@@ -2,7 +2,7 @@
 
 _note: - there is a simplified barebones version available on the [barebones branch](https://github.com/dakom/html5-boilerplate/tree/barebones). For most projects that's really the better starting point_
 
-_there's also a react-friendly version [here](https://github.com/dakom/html5-boilerplate/tree/barebones-react)_
+_For use with React, start with [this branch](https://github.com/dakom/html5-boilerplate/tree/react)_
 
 # Project Sample
 ![Demo Screenshot](/screenshots/Demo.png?raw=true "Demo Screenshot")
