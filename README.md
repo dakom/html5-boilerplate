@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/dakom/html5-boilerplate.svg?branch=master)](https://travis-ci.org/dakom/html5-boilerplate)
 
+# DEPRECATED - WEB TECH MOVES FAST AND MODERN WEBPACK ETC. IS MUCH BETTER (or at least I got used to it)!
+
 _note: - there is a simplified barebones version available on the [barebones branch](https://github.com/dakom/html5-boilerplate/tree/barebones). For most projects that's really the better starting point_
 
 _For use with React, start with [this branch](https://github.com/dakom/html5-boilerplate/tree/react)_
